@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+
+<!--
+  ***************************************************************************
+	** Scripts for Migration.                                                **
+	**                                                                       **
+	** Date         Author      Version     Description                      **
+	** ________     ______      _______     ___________                      **
+	** 20130426     H.Nguyen                Created                          **
+	***************************************************************************
+-->
+
+<project name="95.migration.xml" basedir="." default="main">
+
+	<property name="executable-logs-dir" location="C:/Work/PalmaTas/LogsTool"/>
+
+	<!-- Allow properties following these statements to be overridden -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${env.WT_HOME}/ant/lib/ant-contrib.jar" />
+	<property environment="env" />
+
+	<!-- Windchill directories -->
+	<property name="wt.loadFiles.dir" value="${env.WT_HOME}/loadFiles" />
+	<property name="wt.codebase.dir" value="${env.WT_HOME}/codebase" />
+	
+	<!-- Local directories -->
+	<property name="local.migration.dir" value="loadFiles" />
+	
+	<path id="wt.classpath">
+		<pathelement location="${wt.codebase.dir}" />
+		<pathelement location="${env.WT_HOME}/lib/servlet.jar"/>
+		<fileset dir="${wt.codebase.dir}/WEB-INF/lib" includes="**/*.jar" />
+		<fileset dir="${env.WT_HOME}/srclib" includes="**/*.jar" excludes="servlet.jar" />
+		<fileset dir="codebase/lib" includes="**/*.jar" />
+	</path>
+	
+	<!-- Take care of properties declaration order : first overwrites last -->
+	<!-- Migration properties files -->
+	<property file="migration.properties" />
+	
+	<property name="migration.files" value="**/*.csv" />
+	
+		
+	<!--
+		Standard Windchill LoadFromFile
+	-->
+	<target name="load.from.file">
+		<echo>File loaded : ${fileToLoad}</echo>
+		<java classname="wt.load.LoadFromFile" fork="true">
+			  <arg line="-d ${fileToLoad} -u ${ORG_ADMIN_NAME} -p ${ORG_ADMIN_PWD} -t ${COLUMN_SEPARATOR}"/>
+			  <classpath refid="wt.classpath"/>
+		</java>
+	</target>
+		
+		
+	<target name="load.PRODUCT" description="Load all files in PRODUCT folder.">
+
+		<echo>*** Load products file from ${migration.dir}/PRODUCT... ***</echo>
+
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">
+			<path>
+				<fileset dir="${migration.dir}/PRODUCT">
+					<include name="${migration.files}"/>									
+				</fileset>
+			</path>
+		</foreach>		
+		<echo>Data loaded.</echo>				
+	</target>
+	
+	<target name="load.3E" description="Load the file in 3E folder.">
+
+		<echo>*** Load 3E file from ${migration.dir}/3E... ***</echo>
+
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">
+			<path>
+				<fileset dir="${migration.dir}/3E">
+					<include name="${migration.files}"/>									
+				</fileset>
+			</path>
+		</foreach>		
+		<echo>Data loaded.</echo>				
+	</target>	
+	
+	<!-- ~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$ -->
+	<!-- N3E Parts. Two loads can run in parallele -->
+	<!-- $~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~ -->
+	
+	<target name="load.N3E" description="Load all files in N3E folder.">
+		
+		<echo>*** Load 3E file from ${migration.dir}/N3E... ***</echo>
+		
+		<!-- Loop on every CSV files in a same directory -->
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+			<path> 
+				<fileset dir="${migration.dir}/N3E">
+					<include name="${migration.files}"/>
+				</fileset>
+			</path> 
+		</foreach>
+		<echo>Data loaded.</echo>	
+		
+	</target>
+	
+	<target name="load.N3E2" description="Load all files in second N3E folder.">
+		
+		<echo>*** Load 3E file from ${migration.dir}/N3E2... ***</echo>
+		
+		<!-- Loop on every CSV files in a same directory -->
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+			<path> 
+				<fileset dir="${migration.dir}/N3E2">
+					<include name="${migration.files}"/>
+				</fileset>
+			</path> 
+		</foreach>
+		<echo>Data loaded.</echo>	
+		
+	</target>
+	
+	
+	<!-- ~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$ -->
+	<!-- IHW Parts. Two loads can run in parallele -->
+	<!-- $~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~ -->
+	
+	<target name="load.PART" description="Load all files in PART folder">
+		
+		<echo>*** Loading Internal Hardware Item from directory ${migration.dir}/PART... ***</echo>
+		
+		<!-- Loop on every CSV files in a same directory -->
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+			<path> 
+				<fileset dir="${migration.dir}/PART">
+					<include name="${migration.files}"/>
+				</fileset>
+			</path> 
+		</foreach>
+		<echo>Data loaded.</echo>	
+		
+	</target>
+	
+	<target name="load.PART2" description="Load all files in PART folder">
+		
+		<echo>*** Loading Internal Hardware Item from directory ${migration.dir}/PART... ***</echo>
+		
+		<!-- Loop on every CSV files in a same directory -->
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+			<path> 
+				<fileset dir="${migration.dir}/PART2">
+					<include name="${migration.files}"/>
+				</fileset>
+			</path> 
+		</foreach>
+		<echo>Data loaded.</echo>	
+		
+	</target>
+	
+	
+	<target name="load.BOM" description="Load all part usage links in BOM folder."> 
+	
+		 <echo>*** Loading Part Structure from directory ${migration.dir}/BOM... ***</echo>
+	     
+	     <!-- Loop on every CSV files in a same directory -->
+	     <foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+			<path> 
+				<fileset dir="${migration.dir}/BOM">
+				<include name="${migration.files}"/>
+			</fileset>
+			</path> 
+		</foreach>
+		<echo>Data loaded.</echo>	
+		
+	</target>
+	
+	<target name="process.logs" description="Post process of csv files and failures, if any">
+		 <echo message="actionLoad=${actionLoad}"/>
+		  <echo message="inputLoadFolder=${inputLoadFolder}"/>
+		<exec dir="${executable-logs-dir}" executable="cmd">
+	      <!--    <arg line="/c csv_import.bat \-cla ${actionLoad} \-fd ${inputLoadFolder} \-id ${wt.loadFiles.dir}/ext/thales/palma/ETCA/migrationTasB/${inputLoadFolder} \-old ${executable-logs-dir}/logs"/> -->
+	      	<arg value="/c" /> 
+	         <arg value="csv_import.bat -cla ${actionLoad} -fd ${inputLoadFolder} -id ${wt.loadFiles.dir}/ext/thales/palma/ETCA/migrationTasB/${inputLoadFolder} -old ${executable-logs-dir}/logs" />
+	   <!--  <arg value="-fd ${inputLoadFolder}" />
+	        <arg value="-id ${wt.loadFiles.dir}/ext/thales/palma/ETCA/migrationTasB/${inputLoadFolder}" />
+	        <arg value="-old ${executable-logs-dir}/logs" /> -->
+	       
+	    </exec>
+	</target>
+	
+	<target name="main" description="Launch migration">
+		<antcall target="load.products" /> 
+		<antcall target="load.3e" /> 
+		<antcall target="load.componentHW" /> 
+		<antcall target="load.internalHW" /> 
+		<antcall target="load.partusagelink" />
+	</target>
+</project>
