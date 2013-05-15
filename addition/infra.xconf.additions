@@ -1,0 +1,22 @@
+
+
+<!-- ~~X~~X~~X~~X~~X~~X~~X -->
+<!--      Interfaces       -->
+<!-- ~~X~~X~~X~~X~~X~~X~~X -->
+
+<!-- NATIVE FILES FOR PDF CONVERSION-->
+<Property overridable="true" targetFile="codebase/ext/thales/palma/palma.properties"
+   name="ext.thales.palma.docr.render.engine.monitor"
+   value="/opt/docr_req/scanned"/>
+
+<Property overridable="true" targetFile="codebase/ext/thales/palma/palma.properties"
+   name="ext.thales.palma.docr.render.jar.temp.path"
+   value="/opt/docr_req/tmp"/>
+
+<!-- DIGITAL SIGNATURE CERTIFICATE STORE LOCATION -->
+<Property overridable="true" targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   name="ext.thales.palma.tas.docr.pki.keystore"
+   value="/opt/dsig/.keystore"/>
+
+
+
