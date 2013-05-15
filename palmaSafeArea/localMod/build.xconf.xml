@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+
+<!--
+	***************************************************************************
+	** Update site.xconf with palma additions and propagate                  **
+	**                                                                       **
+	** Modified     Author      Version     Description                      **
+	** ________     ______      _______     ___________                      **
+	** 20060303     D.Polzin                Created                          **
+	***************************************************************************
+-->
+
+<project name="build.xconf" default="main" basedir=".">
+
+	<!-- Allow properties following these statements to be overridden -->
+	<property environment="env" />
+
+	<property name="xconf.addition.file" value="addition/site.xconf.additions" />
+	<property name="declarations.addition.file" value="addition/declarations.xconf.additions" />
+	<property name="web.addition.file" value="addition/web.xml.additions" />
+	<property name="palma.xconf.file" value="${env.WT_HOME}/codebase/ext/thales/palma/palma.xconf" />
+	<property name="target.xconf.file" value="${env.WT_HOME}/site.xconf" />
+	<property name="target.declarations.file" value="${env.WT_HOME}/declarations.xconf" />
+	<property name="target.web.file" value="${env.WT_HOME}/codebase/WEB-INF/web.xml" />
+	<property name="local.addition.file" value="addition/local.xconf.additions" />
+	<property name="local.migration.addition.file" value="addition/local.migration.xconf.additions" />
+	<property name="palmaModules.xconf.file" value="${env.PALMA_HOME}/addition/palmaModules.xconf" />
+
+	<!-- Local directory where action_*.properties are located -->
+	<property name="action.dir" value="addition/reports/action" />
+	<!-- Name of PALMA report configuration file -->
+	<property name="report.xconf.file" value="palmaReport.xconf" />
+	<!-- Name of PALMA interface configuration file -->
+	<property name="interfaces.xconf.file" value="palmaInterfaces.xconf" />
+	<!-- Name of PALMA datapack configuration file -->
+	<property name="datapack.xconf.file" value="palmaDatapack.xconf" />
+	<!-- Name of change dataUtilities configuration file -->
+	<property name="change.dataUtilities.xconf.file" value="change.dataUtilities.xconf" />
+
+	<!--
+		Take care of properties declaration order : first overwrites last.
+	-->
+	<property file="build.org.dev.properties" />
+	<property file="build.org.properties" />
+	<property file="build.site.dev.properties" />
+	<property file="build.site.properties" />
+	<property file="build.security.dev.properties" />
+	<property file="build.security.properties" />
+	<property file="encoding.properties" />
+	
+	<taskdef name="if" classname="net.sf.antcontrib.logic.IfTask" classpath="${env.WT_HOME}/ant/lib/ant-contrib.jar" />
+
+	<available file="${palmaModules.xconf.file}" property="palmaModule.available" />
+
+	<condition property="local" value="true">
+		<and>
+			<not>
+				<equals arg1="${env.PALMA_SITE}" arg2="MEUDON" casesensitive="false"/>
+			</not>
+			<available file="${local.addition.file}"/>
+		</and>
+	</condition>
+
+
+	<!-- Remove PALMA additions to site and declaration .xconf files -->
+	<target name="clean">
+
+		<replaceregexp
+			file="${target.declarations.file}"
+			match="&lt;!--PALMA--&gt;(.*?)&lt;!--PALMA--&gt;"
+			replace=""
+			flags="s" />
+		<replaceregexp
+			file="${target.xconf.file}"
+			match="&lt;!--PALMA--&gt;(.*?)&lt;!--PALMA--&gt;"
+			replace=""
+			flags="s" />
+		<replaceregexp
+			file="${target.web.file}"
+			match="&lt;!--PALMA--&gt;(.*?)&lt;!--PALMA--&gt;"
+			replace=""
+			flags="s" />
+
+		<delete failonerror="false">
+			<fileset dir="${wt.codebase.dir}/ext/thales" includes="**/*.properties" />
+		</delete>
+
+		<antcall target="propagate.properties" />
+
+	</target>
+
+
+	<!--
+		Insert PALMA entries into %WT_HOME%/declaration.xconf
+		Deploy targeted files as well.
+	-->
+	<target name="deploy.declaration.xconf" description="Insert PALMA additions to declarations.xconf">
+
+		<!-- Remove previous additions -->
+		<replaceregexp
+			file="${target.declarations.file}"
+			match="(\r\n)*&lt;!--PALMA--&gt;(.*?)&lt;!--PALMA--&gt;"
+			replace=""
+			flags="s" />
+
+		<!-- Copy additions -->
+		<loadfile property="delaration.addition" srcFile="${declarations.addition.file}" />
+		<replaceregexp
+			file="${target.declarations.file}"
+			match="&lt;/Configuration&gt;"
+			replace="${delaration.addition}" />
+
+		<!-- Set PALMA source dir -->
+		<replace
+			file="${target.declarations.file}"
+			token="PALMA_HOME"
+			value="${env.PALMA_HOME}" />
+		<mkdir dir="${env.WT_HOME}/codebase/ext/thales/palma" />
+		<copy todir="${env.WT_HOME}/codebase/ext/thales/palma" overwrite="true">
+			<fileset dir="addition" includes="*.xconf" />
+		</copy>
+		
+		<!-- replacements -->
+		<replace 
+			file="${env.WT_HOME}/codebase/ext/thales/palma/palmaCognosReport.xconf" 
+			token="BATCH_ROOT_DIR" 
+			value="${report.generation.dir}"/>
+
+	</target>
+
+
+	<target name="deploy.palma.xconf" description="Insert PALMA additions to site.xconf">
+
+		<!-- Remove previous additions -->
+		<replaceregexp file="${target.xconf.file}" match="&lt;!--PALMA--&gt;(.*?)&lt;!--PALMA--&gt;" replace="" flags="s" />
+
+		<!-- Copy additions -->
+		<loadfile property="site.addition" srcFile="${xconf.addition.file}" />
+		<replaceregexp file="${target.xconf.file}" match="&lt;/Configuration&gt;" replace="${site.addition}" />
+
+		<!-- Replacements -->
+		<replace file="${target.xconf.file}" token="PALMA_HOME" value="${env.PALMA_HOME}" />
+		<replace file="${palma.xconf.file}">
+			<replacefilter token="LIBRARY_COMPONENT_TEMPLATE_NAME" value="${LIBRARY_COMPONENT_TEMPLATE_NAME}" />
+			<replacefilter token="LIBRARY_COMPANIES_TEMPLATE_NAME" value="${LIBRARY_COMPANIES_TEMPLATE_NAME}" />
+			<replacefilter token="LIBRARY_CONSTRAINT_TEMPLATE_NAME" value="${LIBRARY_CONSTRAINT_TEMPLATE_NAME}" />
+			<replacefilter token="LIBRARY_DATAPACK_TEMPLATE_NAME" value="${LIBRARY_DATAPACK_TEMPLATE_NAME}" />
+			<replacefilter token="LIBRARY_LOCATION_TEMPLATE_NAME" value="${LIBRARY_LOCATION_TEMPLATE_NAME}" />
+			<replacefilter token="LIBRARY_AIRWORTHINESS_LOCATION_NAME" value="${LIBRARY_AIRWORTHINESS_LOCATION_NAME}" />						
+			<replacefilter token="LIBRARY_COMPONENT_NAME" value="${LIBRARY_COMPONENT_NAME}" />
+			<replacefilter token="LIBRARY_COMPANIES_NAME" value="${LIBRARY_COMPANIES_NAME}" />
+			<replacefilter token="LIBRARY_CONSTRAINT_NAME" value="${LIBRARY_CONSTRAINT_NAME}" />
+			<replacefilter token="LIBRARY_DATAPACK_NAME" value="${LIBRARY_DATAPACK_NAME}" />
+			<replacefilter token="COUNTRIES_CSV_FILE" value="${COUNTRIES_CSV_FILE}" />
+			<replacefilter token="COUNTRIES_CSV_FULL_FILE" value="${COUNTRIES_CSV_FULL_FILE}" />
+		</replace>
+
+		<!-- localized xconf integration -->
+		<antcall target="replace.local" />
+
+		<!-- Propagate -->
+		<antcall target="propagate.properties" />
+
+	</target>
+
+
+	<target name="deploy.palma.xconf.migration" description="Insert PALMA additions to site.xconf in migration mode">
+
+		<!-- Remove previous additions -->
+		<replaceregexp file="${target.xconf.file}" match="&lt;!--PALMA--&gt;(.*?)&lt;!--PALMA--&gt;" replace="" flags="s" />
+
+		<!-- Copy additions -->
+		<loadfile property="site.addition" srcFile="${xconf.addition.file}" />
+		<replaceregexp file="${target.xconf.file}" match="&lt;/Configuration&gt;" replace="${site.addition}" />
+
+		<!-- Set PALMA source dir -->
+		<replace file="${target.xconf.file}" token="PALMA_HOME" value="${env.PALMA_HOME}" />
+
+		<!-- localized xconf integration -->
+		<antcall target="replace.local.migration" />
+
+		<!-- Propagate -->
+		<antcall target="propagate.properties" />
+
+	</target>
+
+	<target name="deploy.interfaces.xconf" description="Build palmaInterfaces.xconf file">
+		<copy file="addition/${interfaces.xconf.file}" todir="${env.WT_HOME}/codebase/ext/thales/palma" overwrite="true" />
+	</target>
+
+
+	<target name="deploy.datapack.xconf" description="Build palmaDatapack.xconf file">
+			<copy file="addition/${datapack.xconf.file}" todir="${env.WT_HOME}/codebase/ext/thales/palma" overwrite="true" />
+	</target>
+
+	<target name="deploy.change.dataUtilities.xconf" description="Build change.dataUtilities.xconf file">
+			<copy file="addition/${change.dataUtilities.xconf.file}" todir="${env.WT_HOME}/codebase/ext/thales/palma" overwrite="true" />
+	</target>
+
+	<!--
+		append local xconf file (the one used by an adoption unit)
+	-->
+	<target name="replace.local" if="local">
+
+		<!-- Copy Local additions -->
+		<echo>Local configuration deployement...</echo>
+		<loadfile property="local.additions" srcFile="${local.addition.file}" />
+		<replaceregexp file="${env.WT_HOME}/site.xconf" match="&lt;!--LOCALIZATION.AREA.DO.NOT.MODIFY.THIS.COMMENT--&gt;" replace="${local.additions}" />
+
+		<!-- TAS BEGIN TASKU-15 -->
+		<antcall target="TAS.replace.infra"/>
+		<!-- TAS END -->
+
+	</target>
+
+	<!--
+		TAS-BEGIN TASKU-15
+		append infrastructure xconf file (the one used by an adoption unit)
+	-->
+	<target name="TAS.replace.infra">
+
+		<echo>TAS Infra configuration deployement...</echo>
+		<loadfile property="infra.additions" srcFile="addition/infra.xconf.additions"/>
+		<replaceregexp file="${env.WT_HOME}/site.xconf" match="&lt;!--INFRA.AREA.DO.NOT.MODIFY.THIS.COMMENT--&gt;" replace="${infra.additions}"/>
+
+	</target>
+	<!-- TAS END -->
+
+	<!--
+		append local xconf file in migration mode (the one used by an adoption unit)
+	-->
+	<target name="replace.local.migration" if="local">
+
+		<echo>Local configuration deployement...</echo>
+
+		<!-- Copy local additions -->
+		<loadfile property="local.additions" srcFile="${local.addition.file}" />
+		<replaceregexp file="${target.xconf.file}" match="&lt;!--LOCALIZATION.AREA.DO.NOT.MODIFY.THIS.COMMENT--&gt;" replace="${local.additions}" />
+		
+		<!-- TAS BEGIN -->
+		<antcall target="TAS.replace.infra"/>
+		<antcall target="TAS.disable.rules.migration"/>
+		<!-- TAS END -->		
+
+	</target>
+
+
+	<!--
+		TAS-BEGIN 
+		unable rules from palmaRules xconf file (the ones just needed for the data load)
+	-->
+	<target name="TAS.disable.rules.migration">
+
+		<echo>TAS Rules for Data Migration...</echo>
+		<loadfile property="mig.rules.additions" srcFile="addition/migration.rules.xconf.additions"/>
+		<replaceregexp file="${target.xconf.file}" match="&lt;!--MIGRATION.RULES.AREA.DO.NOT.MODIFY.THIS.COMMENT--&gt;" replace="${mig.rules.additions}" />
+	</target>
+	
+	<!-- 'migration' is easy to remember and quicker to type than 'deploy.palma.xconf.migration' -->
+	<target name="migration" description="Deploy migration configuration">
+		<antcall target="deploy.palma.xconf.migration"/>
+	</target>
+	<!-- TAS END -->
+
+	<!--
+		Insert PALMA entries into %WT_HOME%/codebase/WEB-INF/web.xml
+	-->
+	<target name="deploy.web.xml" description="Insert PALMA additions to web.xml">
+		<loadfile property="web.addition" srcFile="${web.addition.file}" />
+		<!-- Remove previous additions -->
+		<replaceregexp
+			file="${target.web.file}"
+			match="(\r\n)*&lt;!--PALMA--&gt;.*&lt;!--PALMA--&gt;"
+			replace=""
+			flags="s" />
+		<!-- TODO: to be removed -->
+		<replaceregexp
+					file="${target.web.file}"
+					match="(\r\n)*&lt;!--PALMA_WBR--&gt;.*&lt;!--PALMA_WBR--&gt;"
+					replace=""
+					flags="s" />
+		<!-- Copy additions -->
+		<replaceregexp
+			file="${target.web.file}"
+			match="&lt;/web-app&gt;"
+			replace="${web.addition}" />
+	</target>
+
+
+	<!-- Insert a module configuration into palmaModules.xconf.                     -->
+	<!-- This target is expecting a configuration file location as input parameter. -->
+	<!-- Parameter name is 'paramFile'. Given file content will be inserted into    -->
+	<!-- palmaModules.xconf file. Encasulate your configuration files with comments -->
+	<!-- that you may use later with 'module.clean.config' target                   -->
+	<!--                                                                            -->
+	<!-- Example : [antcall target="module.insert.config"]                          -->
+	<!--              [param name="paramFile" value="my_config_file"/]              -->
+	<!--           [/antcall]                                                       -->
+
+	<target name="module.insert.config" depends="module.init.xconf">
+
+		<property name="REPLACE_PATTERN" value="&lt;/Configuration&gt;" />
+		<property name="TMP_REPLACE_PATTERN" value="&lt;!--IF_YOU_SEE_THIS_SOMETHING_WENT_WRONG_IN_MODULE_CONFIG_DEPLOYEMENT_~_PLEASE_REMOVE_IT--&gt;" />
+
+		<replaceregexp
+			file="${palmaModules.xconf.file}"
+			match="${REPLACE_PATTERN}"
+			replace="${TMP_REPLACE_PATTERN}${REPLACE_PATTERN}" />
+
+		<!-- module.config.xconf is target parameter -->
+		<loadfile property="paramFileContent" srcFile="${paramFile}" />
+		<replaceregexp
+			file="${palmaModules.xconf.file}"
+			match="${TMP_REPLACE_PATTERN}"
+			replace="${paramFileContent}" />
+
+	</target>
+
+
+	<target name="module.propagate">
+
+		<copy todir="${env.WT_HOME}/codebase/ext/thales/palma">
+			<fileset file="${palmaModules.xconf.file}" />
+		</copy>
+
+		<!-- Propagate -->
+		<antcall target="propagate.properties" />
+
+	</target>
+
+
+	<target name="module.clean.all.config">
+		<replaceregexp file="${palmaModules.xconf.file}" flags="s">
+			<regexp pattern="&lt;Configuration.*( xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;)&gt;(.*)&lt;/Configuration&gt;" />
+			<substitution expression="&lt;Configuration\1&gt;${line.separator}&lt;/Configuration&gt;" />
+		</replaceregexp>
+	</target>
+
+
+	<!-- Call this to clean your configuration. Specify zone that will be removed  -->
+	<!-- Parameters: 'START', 'END' and 'REPLACE'. What will happen is that these  -->
+	<!-- comments and everything in between will be removed to be replaced by what -->
+	<!-- as been specified for 'REPLACE'. Use "" to erase everything.              -->
+	<target name="module.clean.config">
+		<replaceregexp
+			file="${palmaModules.xconf.file}"
+			match="(\r\n)*${START}.*${END}"
+			replace="${REPLACE}"
+			flags="s" />
+	</target>
+
+
+	<target name="module.init.xconf" unless="palmaModule.available">
+		<copy file="addition/palmaModules.template" tofile="${palmaModules.xconf.file}" />
+	</target>
+
+
+	<!-- Propagate properties -->
+	<target name="propagate.properties">
+		<java fork="true" failonerror="true" jar="${env.WT_HOME}/codebase/WEB-INF/lib/install.jar">
+			<arg value="-r${env.WT_HOME}" />
+			<arg value="-p" />
+		</java>
+	</target>
+
+
+	<target name="main">
+		<antcall target="module.init.xconf" />
+		<antcall target="deploy.interfaces.xconf" />
+		<antcall target="deploy.datapack.xconf" />
+		<antcall target="deploy.declaration.xconf" />
+		<antcall target="deploy.web.xml" />
+		<antcall target="deploy.palma.xconf" />
+		<antcall target="deploy.change.dataUtilities.xconf" />
+		<!-- if installed modules -->
+		<ant antfile="35.build.modules.xml" target="launch.actions" inheritall="false">
+			<property name="actions.list" value="deploy.xconf.config" />
+		</ant>
+	</target>
+
+</project>
