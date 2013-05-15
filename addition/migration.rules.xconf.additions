@@ -1,0 +1,652 @@
+<Property overridable="true" targetFile="codebase/wt.properties"
+   name="wt.manager.monitor.start.BackgroundMethodServer"
+   value="0"/>
+
+<Property overridable="true" targetFile="codebase/wt.properties"
+   name="wt.manager.monitor.services"
+   value="MethodServer"/>
+   
+<Property overridable="true" targetFile="codebase/wt.properties"
+   name="wt.queue.executeQueues"
+   value="false"/>
+   
+<Property targetFile="codebase/wt.properties"
+   name="wt.load.oneTransactionBlock"
+   overridable="true"   
+   value="false"/>
+   
+<Property targetFile="codebase/wt.properties"
+   name="wt.reporting.thirdParty.enabled"
+   overridable="false"   
+   value="false"/>    
+
+<!-- BEGIN unactivate rules for all parts (PalmaPart) -->
+<Property
+  targetFile="codebase/ext/thales/palma/palmaCore.properties"
+	name="ext.thales.palma.enterprise.rules.210"
+	value="PRE_STORE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+	overridable="true" />	
+	
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+		name="ext.thales.palma.enterprise.rules.14"
+		value="POST_STORE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+		overridable="true" />
+		
+<Property
+	targetFile="codebase/ext/thales/palma/palmaCore.properties"
+	name="ext.thales.palma.enterprise.rules.710"
+	value="POST_STORE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+	overridable="true" />	
+	
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+		name="ext.thales.palma.enterprise.rules.32"
+		value="POST_STORE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+		overridable="true" />
+		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+		name="ext.thales.palma.enterprise.rules.51"
+		value="POST_STORE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+		overridable="true" />
+		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+		name="ext.thales.palma.enterprise.rules.14001"
+		value="POST_STORE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+		overridable="true" />		
+		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+		name="ext.thales.palma.enterprise.rules.391"
+		value="POST_CHECKIN#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+		overridable="true" />
+		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.13600"
+   		value="POST_CHECKIN#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.13680"
+   		value="POST_CHECKIN#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   
+   		
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.880"
+   		value="NEW_ITERATION#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.12000"
+   		value="NEW_ITERATION#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.13510"
+   		value="NEW_ITERATION#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   	
+   		  		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+		name="ext.thales.palma.enterprise.rules.211"
+		value="PRE_MODIFY#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+		overridable="true" />
+		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.900"
+   		value="PRE_MODIFY#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+		name="ext.thales.palma.enterprise.rules.390"
+		value="STATE_CHANGE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+		overridable="true" /> 
+	
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.324"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true"/>
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.640"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true"/>
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1020"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1190"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.13610"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   		   				   			
+	  		
+<!-- END unactivate rules for all parts (PalmaPart) -->
+   
+<!-- BEGIN unactivate rules for TAS Components (3E and CHW) -->   		
+   				   			   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.851"
+   		value="PRE_CHECKIN#wt.part.WTPart/PalmaPart/ComponentHW:
+   				ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   
+  
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1068"
+   		value="POST_CHECKIN#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true"/>
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1150"
+   		value="POST_CHECKIN#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   		   
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.502"
+   		value="POST_STORE#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.725"
+   		value="POST_STORE#wt.part.WTPart/PalmaPart/ComponentHW:
+   			ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1104"
+   		value="POST_STORE#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.513"
+   		value="PRE_MODIFY#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+	    name="ext.thales.palma.enterprise.rules.1105"
+	    value="POST_MODIFY#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+	    overridable="true" />   		
+   	
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+		name="ext.thales.palma.enterprise.rules.312"
+		value="NEW_ITERATION#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+		overridable="true" />
+		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.634"
+   		value="NEW_ITERATION#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.494"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart/ComponentHW:
+					   ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   				
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1125"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   		   		   		   		   		
+<!-- END unactivate rules for TAS Components (3E and CHW) -->    		   						
+		
+<!-- BEGIN unactivate rules for TAS IIHW --> 		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.526"
+   		value="PRE_MODIFY#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   
+   				 
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1064"
+   		value="POST_CHECKIN#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" /> 
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1154"
+   		value="POST_CHECKIN#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.700"
+   		value="POST_STORE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.720"
+   		value="POST_STORE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />    
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1100"
+   		value="POST_STORE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.14700"
+   		value="POST_STORE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />    		 						
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.20000"
+   		value="POST_STORE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" /> 
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1081"
+   		value="POST_MODIFY#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   	
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1101"
+   		value="POST_MODIFY#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />    			 
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.630"
+   		value="NEW_ITERATION#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" /> 
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.492"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />  
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.605"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" /> 
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1111"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />  
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1120"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1140"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />  
+ 
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.20010"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.20020"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />      		 
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.20100"
+   		value="STATE_CHANGE#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   		  		 		  		   		 		
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.620"
+   		value="NEW_VERSION#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" /> 
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.624"
+   		value="NEW_VERSION#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.20140"
+   		value="NEW_VERSION#wt.part.WTPart/PalmaPart/InternalItemHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   		
+
+<!-- END unactivate rules for TAS IIHW -->  		
+   		
+   		
+<!-- BEGIN unactivate rules for all documents (WTDocument) -->   		
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.16"
+   		value="POST_STORE#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.31"
+   		value="POST_STORE#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.52"
+   		value="POST_STORE#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.104"
+   		value="POST_STORE#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" /> 
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.11000"
+   		value="POST_STORE#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />    		
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.20070"
+   		value="POST_STORE#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />    		
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.991"
+   		value="PRE_CHECKIN#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   		
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.10407"
+   		value="POST_CHECKIN#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   	
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.901"
+   		value="PRE_MODIFY#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />  
+   
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.360"
+   		value="STATE_CHANGE#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.992"
+   		value="STATE_CHANGE#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" /> 
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.11020"
+   		value="STATE_CHANGE#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />  
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.14200"
+   		value="UPDATE#wt.doc.WTDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />  
+   		 		  		   				  			
+<!-- END unactivate rules for all documents (WTDocument) -->
+
+
+<!-- BEGIN unactivate rules for TAS Internal Documents -->
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.711"
+   		value="POST_STORE#wt.doc.WTDocument/InternalDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" /> 
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.3401"
+   		value="POST_STORE#wt.doc.WTDocument/InternalDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.14500"
+   		value="POST_STORE#wt.doc.WTDocument/InternalDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.13630"
+   		value="STATE_CHANGE#wt.doc.WTDocument/InternalDocument:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />    		   		   		
+
+<!-- END unactivate rules for TAS Internal Documents -->
+
+
+<!-- BEGIN unactivate rules for TAS WTPartUsageLink -->
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.350"
+   		value="PRE_STORE#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.914"
+   		value="PRE_STORE#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.922"
+   		value="PRE_STORE#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   		
+
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.420"
+   		value="POST_STORE#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.916"
+   		value="POST_STORE#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   		
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.918"
+   		value="POST_STORE#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1110"
+   		value="POST_STORE#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   		   		
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.20120"
+   		value="POST_STORE#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.351"
+   		value="PRE_MODIFY#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />  
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.915"
+   		value="PRE_MODIFY#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.923"
+   		value="PRE_MODIFY#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   	
+   		
+   	
+   
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.421"
+   		value="POST_MODIFY#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.917"
+   		value="POST_MODIFY#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.919"
+   		value="POST_MODIFY#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" /> 
+ 
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.1109"
+   		value="POST_MODIFY#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />    		
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.20121"
+   		value="POST_MODIFY#wt.part.WTPartUsageLink:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+<!-- END unactivate rules for TAS Internal Documents -->    		
+
+<!-- Added by DPO the 7th of may -->   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.305"
+   		value="PRE_DELETE#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.20102"
+   		value="POST_CHECKIN#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.20150"
+   		value="POST_MODIFY#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.20155"
+   		value="POST_STORE#wt.part.WTPart/PalmaPart/ComponentHW:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   		
+   	
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.619"
+   		value="NEW_VERSION#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />  
+   		   		  
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.619"
+   		value="NEW_VERSION#wt.part.WTPart/PalmaPart:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.805"
+   		value="POST_STORE#ext.thales.palma.identity.multi.IdentificationBlock:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />   		
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.806"
+   		value="POST_MODIFY#ext.thales.palma.identity.multi.IdentificationBlock:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.810"
+   		value="POST_STORE#ext.thales.palma.identity.multi.IdentificationBlock:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.830"
+   		value="PRE_STORE#ext.thales.palma.identity.multi.IdentificationBlock:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />
+
+<Property
+		targetFile="codebase/ext/thales/palma/palmaCore.properties"
+   		name="ext.thales.palma.enterprise.rules.960"
+   		value="POST_MODIFY#wt.part.WTPartMaster:ext.thales.palma.tas.util.TheNihilRule"
+   		overridable="true" />		 
+   		
+<Property
+		targetFile="codebase/ext/thales/palma/palma.properties"
+		overridable="true"
+		name="ext.thales.palma.enterprise.forbidden.list1"
+		value="" />
+<!-- Description forbidden list -->
+<Property
+		targetFile="codebase/ext/thales/palma/palma.properties"
+		overridable="true"
+		name="ext.thales.palma.enterprise.forbidden.list2"
+		value="" />		 		    		 		
+   		
+  		
