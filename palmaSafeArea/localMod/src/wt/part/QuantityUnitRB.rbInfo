@@ -1,0 +1,122 @@
+ResourceInfo.class=wt.tools.resource.EnumResourceInfo
+ResourceInfo.customizable=true
+ResourceInfo.deprecated=false
+ResourceInfo.UUID=f02e5a5a-f978-438f-be4d-93306237cc68
+
+
+# Entry Format (values equal to default value are not included)
+# <key>.value=
+# <key>.category=
+# <key>.comment=
+# <key>.argComment<n>=
+# <key>.constant=
+# <key>.customizable=
+# <key>.deprecated=
+# <key>.abbreviatedDisplay=
+# <key>.fullDisplay=
+# <key>.shortDescription=
+# <key>.longDescription=
+# <key>.order=
+# <key>.defaultValue=
+# <key>.selectable=
+
+# Entry Contents
+
+as_needed.value=as needed
+as_needed.shortDescription=as needed
+as_needed.order=20
+as_needed.selectable=false
+
+cu_m.value=cubic meters
+cu_m.shortDescription=m^3
+cu_m.order=70
+
+ea.value=each
+ea.comment=For example, how much quantity of a material would you need: 2 meters, 2 kilos, 2 each.
+ea.shortDescription=each
+ea.order=10
+ea.defaultValue=true
+
+kg.value=kilograms
+kg.shortDescription=kg
+kg.order=30
+
+l.value=liters
+l.shortDescription=l
+l.order=50
+
+m.value=meters
+m.shortDescription=m
+m.order=40
+
+sq_m.value=square meters
+sq_m.shortDescription=m^2
+sq_m.order=60
+
+# PALMA BEGIN
+
+d2.value=square decimeters
+d2.shortDescription=square decimeters
+d2.order=100
+d2.selectable=false
+
+p.value=percent
+p.shortDescription=percent
+p.order=110
+p.selectable=false
+
+# Palma - TCIS addition
+
+g.value=grams
+g.shortDescription=g
+g.order=200
+
+mm.value=millimeters
+mm.shortDescription=mm
+mm.order=210
+
+um.value=um
+um.shortDescription=um
+um.order=220
+um.selectable=false
+
+g_cm3.value=g/cm3
+g_cm3.shortDescription=g/cm3
+g_cm3.order=230
+g_cm3.selectable=false
+
+g_m2.value=g/m2
+g_m2.shortDescription=g/m2
+g_m2.order=240
+g_m2.selectable=false
+
+cm3.value=cm3
+cm3.shortDescription=cm^3
+cm3.order=250
+cm3.selectable=false
+
+bq.value=bq
+bq.shortDescription=bq
+bq.order=260
+bq.selectable=false
+
+bq_g.value=bq/g
+bq_g.shortDescription=bq/g
+bq_g.order=270
+bq_g.selectable=false
+
+piece.value=piece
+piece.shortDescription=piece
+piece.order=280
+piece.selectable=false
+
+# PALMA END
+
+# TAS BEGIN
+mm2.value=square millimeters
+mm2.shortDescription=mm^2
+mm2.order=900
+
+lotp.value=lot de pieces
+lotp.shortDescription=lot de pieces
+lotp.order=910
