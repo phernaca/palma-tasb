@@ -84,20 +84,45 @@
 	<!-- N3E Parts. Two loads can run in parallele -->
 	<!-- $~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~ -->
 	
-	<target name="load.N3E" description="Load all files in N3E folder.">
+	<target name="load.N3E" description="Load all files in N3E* folder.">
 		
-		<echo>*** Load 3E file from ${migration.dir}/N3E... ***</echo>
+		<echo>*** Load 3E file from ${migration.dir}/N3E*... ***</echo>
 		
-		<!-- Loop on every CSV files in a same directory -->
-		<foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+		<!-- Loop on N3E directories -->
+		<foreach target="load.N3E.advanced" param="compLoadDirectory" inheritall="true">  
 			<path> 
-				<fileset dir="${migration.dir}/N3E">
-					<include name="${migration.files}"/>
-				</fileset>
+				<dirset dir="${migration.dir}">
+					<include name="N3E*"/>
+				</dirset>
 			</path> 
 		</foreach>
-		<echo>Data loaded.</echo>	
+		<echo>*** N3E loaded. ***</echo>	
 		
+	</target>
+	
+	<target name="load.N3E.advanced" description="Load all files in a N3E folder.">
+			
+			<echo>*** Load 3E file from ${compLoadDirectory}... ***</echo>
+			
+			<!-- Loop on every CSV files in a same directory -->
+			<foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+				<path> 
+					<fileset dir="${compLoadDirectory}">
+						<include name="${migration.files}"/>
+					</fileset>
+				</path> 
+			</foreach>
+			<echo>Data loaded.</echo>	
+			
+			<!-- Stop Windchill -->
+			<ant antfile="40.build.legacy.xml" target="windchill.stop" />
+			<!-- Wait 1 minute -->
+			<sleep seconds="60"/>
+			<!-- Restart Windchill -->
+			<ant antfile="40.build.legacy.xml" target="windchill.start" />
+			<!-- Wait 2 minutes -->
+			<sleep seconds="120"/>
+			
 	</target>
 	
 	<target name="load.N3E2" description="Load all files in second N3E folder.">
@@ -121,19 +146,44 @@
 	<!-- IHW Parts. Two loads can run in parallele -->
 	<!-- $~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~ -->
 	
-	<target name="load.PART" description="Load all files in PART folder">
+	<target name="load.PART" description="Load all files in PART* folder">
 		
-		<echo>*** Loading Internal Hardware Item from directory ${migration.dir}/PART... ***</echo>
+		<echo>*** Loading Internal Hardware Item from directories ${partLoadDirectory}... ***</echo>
+		
+		<!-- Loop on part directories -->
+		<foreach target="load.PART.advanced" param="partLoadDirectory" inheritall="true">  
+			<path> 
+				<dirset dir="${migration.dir}">
+					<include name="PART*"/>
+				</dirset>
+			</path> 
+		</foreach>
+		<echo>*** PART loaded. ***</echo>	
+		
+	</target>
+	
+	<target name="load.PART.advanced" description="Load all files in PART* folder">
+		
+		<echo>*** Loading Internal Hardware Item from directory ${partLoadDirectory}... ***</echo>
 		
 		<!-- Loop on every CSV files in a same directory -->
 		<foreach target="load.from.file" param="fileToLoad" inheritall="true">  
 			<path> 
-				<fileset dir="${migration.dir}/PART">
+				<fileset dir="${partLoadDirectory}">
 					<include name="${migration.files}"/>
 				</fileset>
 			</path> 
 		</foreach>
 		<echo>Data loaded.</echo>	
+		
+		<!-- Stop Windchill -->
+		<ant antfile="40.build.legacy.xml" target="windchill.stop" />
+		<!-- Wait 1 minute -->
+		<sleep seconds="60"/>
+		<!-- Restart Windchill -->
+		<ant antfile="40.build.legacy.xml" target="windchill.start" />
+		<!-- Wait 2 minutes -->
+		<sleep seconds="120"/>
 		
 	</target>
 	
@@ -154,19 +204,44 @@
 	</target>
 	
 	
-	<target name="load.BOM" description="Load all part usage links in BOM folder."> 
+	<target name="load.BOM" description="Load all part usage links in BOM folders."> 
 	
-		 <echo>*** Loading Part Structure from directory ${migration.dir}/BOM... ***</echo>
+		 <echo>*** Loading Part Structure from directories ${bomLoadDirectory}... ***</echo>
 	     
 	     <!-- Loop on every CSV files in a same directory -->
-	     <foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+	     <foreach target="load.BOM.advanced" param="bomLoadDirectory" inheritall="true">  
 			<path> 
-				<fileset dir="${migration.dir}/BOM">
-				<include name="${migration.files}"/>
-			</fileset>
+				<dirset dir="${migration.dir}">
+					<include name="BOM*"/>
+				</dirset>
 			</path> 
 		</foreach>
-		<echo>Data loaded.</echo>	
+		<echo>*** Part Structure loaded. ***</echo>	
+		
+	</target>
+	
+	<target name="load.BOM.advanced" description="Load all part usage links in a BOM folder."> 
+		
+			 <echo>*** Loading Part Structure from directory ${bomLoadDirectory}... ***</echo>
+		     
+		     <!-- Loop on every CSV files in a same directory -->
+		     <foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+				<path> 
+					<fileset dir="${bomLoadDirectory}">
+						<include name="${migration.files}"/>
+					</fileset>
+				</path> 
+			</foreach>
+			<echo>Data loaded.</echo>	
+			
+			<!-- Stop Windchill -->
+			<ant antfile="40.build.legacy.xml" target="windchill.stop" />
+			<!-- Wait 1 minute -->
+			<sleep seconds="60"/>
+			<!-- Restart Windchill -->
+			<ant antfile="40.build.legacy.xml" target="windchill.start" />
+			<!-- Wait 2 minutes -->
+			<sleep seconds="120"/>
 		
 	</target>
 	
