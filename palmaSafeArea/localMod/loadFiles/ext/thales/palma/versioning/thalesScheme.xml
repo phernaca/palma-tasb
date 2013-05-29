@@ -3506,8 +3506,8 @@
 		<value legacy="true">-B<revTo>A</revTo></value>
 		<value legacy="true">0<revTo>A</revTo></value>
 		<value legacy="true">00<revTo>A</revTo></value>
-		<value legacy="true">01<revTo>A</revTo></value>
 		<value legacy="true">1</value>
+		<value legacy="true">01<revTo>A</revTo></value>
 		<value legacy="true">1-0<revTo>A</revTo></value>
 		<value legacy="true">1-1<revTo>A</revTo></value>
 		<value legacy="true">1-2<revTo>A</revTo></value>		
