@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+
+<!--
+  ***************************************************************************
+  ** Scripts for Migration.                                                **
+	**                                                                       **
+	** Date         Author      Version     Description                      **
+	** ________     ______      _______     ___________                      **
+	** 20130426     H.Nguyen                Created                          **
+	***************************************************************************
+-->
+
+<project name="98.migration.classDoc.xml" basedir="." default="main">
+
+	<!-- Allow properties following these statements to be overridden -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${env.WT_HOME}/ant/lib/ant-contrib.jar" />
+	<property environment="env" />
+
+	<!-- Windchill directories -->
+	<property name="wt.loadFiles.dir" value="${env.WT_HOME}/loadFiles" />
+	<property name="wt.codebase.dir" value="${env.WT_HOME}/codebase" />
+	
+	<!-- Local directories -->
+	<property name="local.migration.dir" value="loadFiles" />
+	
+	<path id="wt.classpath">
+		<pathelement location="${wt.codebase.dir}" />
+		<pathelement location="${env.WT_HOME}/lib/servlet.jar"/>
+		<fileset dir="${wt.codebase.dir}/WEB-INF/lib" includes="**/*.jar" />
+		<fileset dir="${env.WT_HOME}/srclib" includes="**/*.jar" excludes="servlet.jar" />
+		<fileset dir="codebase/lib" includes="**/*.jar" />
+	</path>
+	
+	<!-- Take care of properties declaration order : first overwrites last -->
+	<!-- Migration properties files -->
+	<property file="migration.properties" />
+	
+	<property name="migration.files" value="**/*.csv" />
+	
+		
+	<!--
+		Standard Windchill LoadFromFile
+	-->
+	<target name="load.from.file">
+		<echo>File loaded : ${fileToLoad}</echo>
+		<java classname="wt.load.LoadFromFile" fork="true">
+			  <arg line="-d ${fileToLoad} -u ${ORG_ADMIN_NAME} -p ${ORG_ADMIN_PWD} -t ${COLUMN_SEPARATOR}"/>
+			  <classpath refid="wt.classpath"/>
+		</java>
+	</target>
+
+	<!-- Load Products from Class Doc -->
+	<target name="load.PRODUCT.VM" description="Load all files in PRODUCT folder.">
+
+		<echo>*** Load products file from ${migration.dir}/PRODUCT... ***</echo>
+
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">
+			<path>
+				<fileset dir="${migration.classDoc.dir}/PRODUCT">
+					<include name="${migration.files}"/>									
+				</fileset>
+			</path>
+		</foreach>		
+		<echo>Data loaded.</echo>				
+	</target>
+	
+	<!-- Load objects -->
+	<target name="load.DOC.VM" description="Load the file in DOC folder.">
+
+		<echo>*** Load Document file from ${migration.classDoc.dir}/DOC... ***</echo>
+
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">
+			<path>
+				<fileset dir="${migration.classDoc.dir}/DOC">
+					<include name="${migration.files}"/>									
+				</fileset>
+			</path>
+		</foreach>		
+		<echo>Data loaded.</echo>				
+	</target>	
+	
+	<target name="load.SI.VM" description="Load the file in SI folder.">
+
+		<echo>*** Load Specified Item file from ${migration.classDoc.dir}/SI... ***</echo>
+
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">
+			<path>
+				<fileset dir="${migration.classDoc.dir}/SI">
+					<include name="${migration.files}"/>									
+				</fileset>
+			</path>
+		</foreach>		
+		<echo>Data loaded.</echo>				
+	</target>	
+	
+	<target name="load.CHANGE.VM" description="Load the file in CHANGE folder.">
+
+		<echo>*** Load Change objects file from ${migration.classDoc.dir}/SI... ***</echo>
+
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">
+			<path>
+				<fileset dir="${migration.classDoc.dir}/CHANGE">
+					<include name="${migration.files}"/>									
+				</fileset>
+			</path>
+		</foreach>		
+		<echo>Data loaded.</echo>				
+	</target>	
+	
+	<target name="load.FILE.VM" description="Load the file in FILE folder.">
+
+		<echo>*** Load Primary objects of document file from ${migration.classDoc.dir}/FILE... ***</echo>
+
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">
+			<path>
+				<fileset dir="${migration.classDoc.dir}/FILE">
+					<include name="${migration.files}"/>									
+				</fileset>
+			</path>
+		</foreach>		
+		<echo>Data loaded.</echo>				
+	</target>	
+	
+	<target name="load.LINKS.VM" description="Load the file in LINKS folder.">
+
+		<echo>*** Load document and part links file from ${migration.classDoc.dir}/LINKS... ***</echo>
+
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">
+			<path>
+				<fileset dir="${migration.classDoc.dir}/LINKS">
+					<include name="${migration.files}"/>									
+				</fileset>
+			</path>
+		</foreach>		
+		<echo>Data loaded.</echo>				
+	</target>	
+	
+	<target name="main" description="Launch migration">
+		<antcall target="load." /> 
+		<antcall target="load." /> 
+		<antcall target="load." /> 
+		<antcall target="load." /> 
+		<antcall target="load." />
+	</target>
+	
+</project>
