@@ -36,6 +36,7 @@
 	<!-- Take care of properties declaration order : first overwrites last -->
 	<!-- Migration properties files -->
 	<property file="migration.properties" />
+	<property file="encoding.properties" />
 	
 	<property name="migration.files" value="**/*.csv" />
 	
@@ -50,9 +51,25 @@
 			  <classpath refid="wt.classpath"/>
 		</java>
 	</target>
+	
+	<target name="load.USER" description="Load file in USER folder.">
+
+		<echo>*** Load users file from ${migration.dir}/USER... ***</echo>
+
+		<java classname="wt.load.util.CSV2XML" fork="true" >
+			<classpath refid="wt.classpath" />
+			<arg line="-input User.csv -root ${migration.dir}/USER -delimiter | -encoding ${encoding.csv.files}"/>
+		</java>
+
+		<java classname="wt.load.LoadFromFile" fork="true">
+			<arg line="-d ${migration.dir}/USER/User.xml -u ${ORG_ADMIN_NAME} -p ${ORG_ADMIN_PWD} -CONT_PATH &quot;/wt.inf.container.OrgContainer=ETCA/&quot; -t ${COLUMN_SEPARATOR}"/>
+			<classpath refid="wt.classpath"/>
+		</java>
+
+		<echo>Data loaded.</echo>				
+	</target>
 		
-		
-	<target name="load.PRODUCT" description="Load all files in PRODUCT folder.">
+	<target name="load.PRODUCT" description="Load file in PRODUCT folder.">
 
 		<echo>*** Load products file from ${migration.dir}/PRODUCT... ***</echo>
 
@@ -84,7 +101,24 @@
 	<!-- N3E Parts. Two loads can run in parallele -->
 	<!-- $~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~ -->
 	
-	<target name="load.N3E" description="Load all files in N3E* folder.">
+	<target name="load.N3E" description="Load all files in N3E folder.">
+		
+		<echo>*** Load 3E file from ${migration.dir}/N3E1... ***</echo>
+		
+		<!-- Loop on every CSV files in a same directory -->
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+			<path> 
+				<fileset dir="${migration.dir}/N3E1">
+					<include name="${migration.files}"/>
+				</fileset>
+			</path> 
+		</foreach>
+
+	<echo>Data loaded.</echo>	
+		
+	</target>
+	
+	<target name="load.N3E.VM" description="Load all files in N3E* folder.">
 		
 		<echo>*** Load 3E file from ${migration.dir}/N3E*... ***</echo>
 		
@@ -100,7 +134,7 @@
 		
 	</target>
 	
-	<target name="load.N3E.advanced" description="Load all files in a N3E folder.">
+	<target name="load.N3E.VM.advanced" description="Load all files in a N3E folder.">
 			
 			<echo>*** Load 3E file from ${compLoadDirectory}... ***</echo>
 			
@@ -125,7 +159,7 @@
 			
 	</target>
 	
-	<target name="load.N3E2" description="Load all files in second N3E folder.">
+	<target name="load.N3E.VM.2" description="Load all files in second N3E folder.">
 		
 		<echo>*** Load 3E file from ${migration.dir}/N3E2... ***</echo>
 		
@@ -142,16 +176,32 @@
 	</target>
 	
 	
-	<!-- ~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$ -->
-	<!-- IHW Parts. Two loads can run in parallele -->
-	<!-- $~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~ -->
+	<!-- ~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~ -->
+	<!-- IHW Parts. Three loads can run in parallele (see script 96 and 97) -->
+	<!-- $~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~ -->
 	
-	<target name="load.PART" description="Load all files in PART* folder">
+	<target name="load.PART" description="Load all files in PART folder">
+		
+		<echo>*** Loading Internal Hardware Item from directory ${migration.dir}/PART1... ***</echo>
+		
+		<!-- Loop on every CSV files in a same directory -->
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+			<path> 
+				<fileset dir="${migration.dir}/PART1">
+					<include name="${migration.files}"/>
+				</fileset>
+			</path> 
+		</foreach>
+		<echo>Data loaded.</echo>	
+		
+	</target>
+	
+	<target name="load.PART.VM" description="Load all files in PART* folder">
 		
 		<echo>*** Loading Internal Hardware Item from directories ${partLoadDirectory}... ***</echo>
 		
 		<!-- Loop on part directories -->
-		<foreach target="load.PART.advanced" param="partLoadDirectory" inheritall="true">  
+		<foreach target="load.PART.VM.advanced" param="partLoadDirectory" inheritall="true">  
 			<path> 
 				<dirset dir="${migration.dir}">
 					<include name="PART*"/>
@@ -162,7 +212,7 @@
 		
 	</target>
 	
-	<target name="load.PART.advanced" description="Load all files in PART* folder">
+	<target name="load.PART.VM.advanced" description="Load all files in PART* folder">
 		
 		<echo>*** Loading Internal Hardware Item from directory ${partLoadDirectory}... ***</echo>
 		
@@ -187,7 +237,7 @@
 		
 	</target>
 	
-	<target name="load.PART2" description="Load all files in PART folder">
+	<target name="load.PART.VM.2" description="Load all files in PART folder">
 		
 		<echo>*** Loading Internal Hardware Item from directory ${migration.dir}/PART... ***</echo>
 		
@@ -203,8 +253,26 @@
 		
 	</target>
 	
+	<!-- ~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~ -->
+	<!-- Structure Links (BOM). Three loads can run in parallele (see script 96 and 97) -->
+	<!-- $~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~ -->
 	
-	<target name="load.BOM" description="Load all part usage links in BOM folders."> 
+	<target name="load.BOM" description="Load all part usage links in BOM folder."> 
+	
+		 <echo>*** Loading Part Structure from directory ${migration.dir}/BOM1... ***</echo>
+	     
+	     <!-- Loop on every CSV files in a same directory -->
+	     <foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+			<path> 
+				<fileset dir="${migration.dir}/BOM1">
+				<include name="${migration.files}"/>
+			</fileset>
+			</path> 
+		</foreach>
+		<echo>Data loaded.</echo>			
+	</target>
+	
+	<target name="load.BOM.VM" description="Load all part usage links in BOM folders."> 
 	
 		 <echo>*** Loading Part Structure from directories ${bomLoadDirectory}... ***</echo>
 	     
@@ -220,7 +288,7 @@
 		
 	</target>
 	
-	<target name="load.BOM.advanced" description="Load all part usage links in a BOM folder."> 
+	<target name="load.BOM.VM.advanced" description="Load all part usage links in a BOM folder."> 
 		
 			 <echo>*** Loading Part Structure from directory ${bomLoadDirectory}... ***</echo>
 		     

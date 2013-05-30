@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+
+<!--
+  *****************************************************************************
+	** Scripts for Migration.                                                **
+	**                                                                       **
+	** Date         Author      Version     Description                      **
+	** ________     ______      _______     ___________                      **
+	** 20130426     H.Nguyen                Created                          **
+	***************************************************************************
+-->
+
+<project name="95.migration.xml" basedir="." default="main">
+
+	<property name="executable-logs-dir" location="C:/Work/PalmaTas/LogsTool"/>
+
+	<!-- Allow properties following these statements to be overridden -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${env.WT_HOME}/ant/lib/ant-contrib.jar" />
+	<property environment="env" />
+
+	<!-- Windchill directories -->
+	<property name="wt.loadFiles.dir" value="${env.WT_HOME}/loadFiles" />
+	<property name="wt.codebase.dir" value="${env.WT_HOME}/codebase" />
+	
+	<!-- Local directories -->
+	<property name="local.migration.dir" value="loadFiles" />
+	
+	<path id="wt.classpath">
+		<pathelement location="${wt.codebase.dir}" />
+		<pathelement location="${env.WT_HOME}/lib/servlet.jar"/>
+		<fileset dir="${wt.codebase.dir}/WEB-INF/lib" includes="**/*.jar" />
+		<fileset dir="${env.WT_HOME}/srclib" includes="**/*.jar" excludes="servlet.jar" />
+		<fileset dir="codebase/lib" includes="**/*.jar" />
+	</path>
+	
+	<!-- Take care of properties declaration order : first overwrites last -->
+	<!-- Migration properties files -->
+	<property file="migration.properties" />
+	<property file="encoding.properties" />
+	
+	<property name="migration.files" value="**/*.csv" />
+	
+		
+	<!--
+		Standard Windchill LoadFromFile
+	-->
+	<target name="load.from.file">
+		<echo>File loaded : ${fileToLoad}</echo>
+		<java classname="wt.load.LoadFromFile" fork="true">
+			  <arg line="-d ${fileToLoad} -u ${ORG_ADMIN_NAME} -p ${ORG_ADMIN_PWD} -t ${COLUMN_SEPARATOR}"/>
+			  <classpath refid="wt.classpath"/>
+		</java>
+	</target>
+	
+	<!-- $~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~ -->
+	
+	<target name="load.N3E" description="Load all files in N3E folder.">
+		
+		<echo>*** Load 3E file from ${migration.dir}/N3E2... ***</echo>
+		
+		<!-- Loop on every CSV files in a same directory -->
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+			<path> 
+				<fileset dir="${migration.dir}/N3E2">
+					<include name="${migration.files}"/>
+				</fileset>
+			</path> 
+		</foreach>
+
+		<echo>Data loaded.</echo>	
+		
+	</target>
+	
+	
+	<!-- ~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~ -->
+	<!-- IHW Parts. Three loads can run in parallele (see script 95 and 97) -->
+	<!-- $~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~ -->
+	
+	<target name="load.PART" description="Load all files in PART2 folder">
+		
+		<echo>*** Loading Internal Hardware Item from directory ${migration.dir}/PART... ***</echo>
+		
+		<!-- Loop on every CSV files in a same directory -->
+		<foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+			<path> 
+				<fileset dir="${migration.dir}/PART2">
+					<include name="${migration.files}"/>
+				</fileset>
+			</path> 
+		</foreach>
+		<echo>Data loaded.</echo>	
+		
+	</target>
+		
+	<!-- ~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~ -->
+	<!-- Structure Links (BOM). Three loads can run in parallele (see script 95 and 97) -->
+	<!-- $~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~$~~ -->
+	
+	<target name="load.BOM" description="Load all part usage links in BOM folder."> 
+	
+		 <echo>*** Loading Part Structure from directory ${migration.dir}/BOM2... ***</echo>
+	     
+	     <!-- Loop on every CSV files in a same directory -->
+	     <foreach target="load.from.file" param="fileToLoad" inheritall="true">  
+			<path> 
+				<fileset dir="${migration.dir}/BOM2">
+				<include name="${migration.files}"/>
+			</fileset>
+			</path> 
+		</foreach>
+		<echo>Data loaded.</echo>			
+	</target>
+	
+</project>
